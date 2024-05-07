@@ -1,0 +1,135 @@
+
+// getValue and setValue for singleline text/multiline text field
+
+function SetAttributeValue(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var StudentName = formContext.getAttribute("crb7d_name").getValue();
+	if (StudentName.toLowerCase() == "navya")
+	{
+		formContext.getAttribute("crb7d_email").setValue("navya@gmail.com")
+	}
+}
+
+
+
+
+// getValue and setValue for two select option
+
+
+function DoYouhavePan(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var doyouhavepan = formContext.getAttribute("crb7d_doyouhavepan").getValue();
+	if (doyouhavepan == false)
+	{
+		formContext.getAttribute("crb7d_doyouhavepan").setValue(true)
+	}
+}
+
+
+
+
+
+
+
+function optionsetText(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var department = formContext.getAttribute("crb7d_department").getText();
+	if (department == "Civil")
+	{
+		formContext.getAttribute("crb7d_department").setText("Computer")
+	}
+}
+function OptionsetValue(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var department = formContext.getAttribute("crb7d_class").getValue();
+	var text = "Power Automate";
+	var optionSetValues = formContext.getAttribute("crb7d_class").getOptions();
+	for (i = 0; i < optionSetValues.length; i++)
+	{
+		if (optionSetValues[i].text == text)
+		{
+			formContext.getAttribute("crb7d_class").setValue(optionSetValues[i].value)
+		}
+	}
+}
+function DecimalNumber(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var fees = formContext.getAttribute("crb7d_fees").getValue();
+	if (fees == null)
+	{
+		formContext.getAttribute("crb7d_fees").setValue(40000)
+	}
+}
+function WholeNumber(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var WholeNum = formContext.getAttribute("xxx").getValue();
+	if (WholeNum == null)
+	{
+		formContext.getAttribute("xxx").setValue(4)
+	}
+}
+function floatNumber(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var floatNum = formContext.getAttribute("xxx").getValue();
+	if (floatNum == null)
+	{
+		formContext.getAttribute("xxx").setValue(4)
+	}
+}
+function datefield(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var todayDateOnly = new Date().toDateString();
+	var admissiondate = formContext.getAttribute("crb7d_admissiondate").getValue();
+	if (admissiondate == null)
+	{
+		formContext.getAttribute("crb7d_admissiondate").setValue(todayDateOnly)
+	}
+}
+function currencyfield(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var amount = formContext.getAttribute("xxx").getValue();
+	if (amount == null)
+	{
+		formContext.getAttribute("xxx").setValue(576.58)
+	}
+}
+function multiselectoptionsetText(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var associateclass = formContext.getAttribute("crb7d_associateclass").getText();
+	var optionset = formcontext.getAttribute("crb7d_associateclass").getOptions();
+	for (i = 0; i < optionset.length; i++)
+	{
+		if (optionset[i] == "First class")
+		{
+			formContext.getAttribute("crb7d_associateclass").setText("final year")
+		}
+	}
+}
+function lookupfield(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var parentname = formContext.getAttribute("crb7d_parents").getValue()[0].name;
+	var newparent = new Array();
+	newparent[0] = new Object();
+	newparent[0].name = "maya";
+	newparent[0].id = "c4e62c68-62fd-ee11-9f89-0022486e5154";
+	newparent[0].entitytype = "parent";
+	if (parentname == null)
+	{
+		formContext.getAttribute("crb7d_parents").setValue(newparent)
+	}
+	else
+	{
+		alert(parentname)
+	}
+};
