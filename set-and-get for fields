@@ -195,7 +195,7 @@ function lookupfield(executionContext)
 	newparent[0].name = "maya"; // name property of object/record
 	newparent[0].id = "c4e62c68-62fd-ee11-9f89-0022486e5154"; //guid of record
 	newparent[0].entitytype = "parent"; // entity type of the record
-	if (parentname == null)
+	if (parentname == undefine)
 	{
 		formContext.getAttribute("crb7d_parents").setValue(newparent)      // if the lookup field is empty newparent record will assign
 	}
