@@ -1,0 +1,132 @@
+// business rule task using javascript
+
+
+// Hide and Show fileds based on and Two Options
+function hideandshowfield(executionContext)
+{
+	var formContext = executionContext.getFormContext();
+	var doyouhavepan = formContext.getAttribute("crb7d_doyouhavepan").getValue(); // getValue returns boolean value
+	
+	if (doyouhavepan == false){
+    formContext.getControl("crb7d_pan").setVisible(false); // instead of getAttribute use getcontrol is a shortcut method to access formContext.ui.controls.get.
+}
+    else{
+    formContext.getControl("crb7d_pan").setVisible(true);
+}
+}
+
+
+
+//Hide and Show fileds based on and Options set
+function hideAndShowBasedOnOptionSet(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var department = formContext.getAttribute("crb7d_department").getText();
+
+    
+
+    if (department === "IT" ) {
+        formContext.getControl("crb7d_class").setVisible(true);
+    } else {
+        formContext.getControl("crb7d_class").setVisible(false);
+    }
+}
+
+
+
+
+// set field mandatory/not mandatory 
+function setfieldrequired(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var department = formContext.getAttribute("crb7d_department").getText();
+    if (department === "IT" ) {
+        formContext.getAttribute("crb7d_classcoordinator").setRequiredLevel("required");
+    } else {
+        formContext.getAttribute("crb7d_classcoordinator").setRequiredLevel("none");
+    }
+}
+
+
+
+
+//Set Field Value based on Option set
+
+function setvalue (executionContext) {
+    var formContext = executionContext.getFormContext();
+    var feepaid = formContext.getAttribute("crb7d_feespaid").getValue();
+    
+    if (feepaid == true) {
+        formContext.getAttribute("crb7d_amountpaid").setValue(40000.00);
+    }
+    else {
+        formContext.getAttribute("crb7d_amountpaid").setValue(null);
+}
+}
+
+
+
+//set default field value
+
+function setDefaultFieldValue(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var fees = formContext.getAttribute("crb7d_fees").getValue();
+    var defaultValue = 40000;
+    if (fees == null) {
+        formContext.getAttribute("crb7d_fees").setValue(defaultValue);
+    }
+}
+
+
+
+// lock and unlock the field
+function lockunlockfield(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var feespaid = formContext.getAttribute("crb7d_feespaid").getValue();
+
+    
+
+    if (feespaid == true ) {
+        formContext.getControl("crb7d_amountpaid").setDisabled(false);
+    } else {
+        formContext.getControl("crb7d_amountpaid").setDisabled(true);
+    }
+}
+
+
+
+//Lock the field when currency is greater than 2000 and less than 5000, Unlock the field when Currency is greater than 6000
+
+
+function lockunlockfieldbaseoncurrency(executionContext){
+    var formContext = executionContext.getFormContext();
+    
+    var crn = formContext.getAttribute("crb7d_currency").getValue();
+    
+    if(crn >= 2000 && crn <=6000){
+        formContext.getControl("crb7d_amountpaid").setDisabled(true);
+    }else{
+        formContext.getControl("crb7d_amountpaid").setDisabled(false);
+    }
+}
+    
+    
+
+
+// Show an error message when phone number does not contain 10 numbers
+
+function errormessge(executionContext) {
+    try {
+        var formContext = executionContext.getFormContext();
+        
+        var wtsp = formContext.getAttribute("crb7d_whatsappnumber").getValue();
+        
+        // Clear any existing notifications
+        formContext.ui.clearFormNotification("phonenumbervalidation");
+
+        if (wtsp && wtsp.length !== 10) {
+            formContext.ui.setFormNotification("Please enter a 10-digit number", "INFO", "phonenumbervalidation");
+        }
+    } catch (error) {
+        console.error("An error occurred: " + error.message);
+    }
+}
+
