@@ -1,0 +1,278 @@
+
+// Javscript to get the "single line of text" field value and show as alert on load of form/ on save form 
+function alertOnLoadForm(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var nameAttribute = formContext.getAttribute("crf6a_name");
+
+    // Check if the attribute exists and has a value
+    if (nameAttribute !== null && nameAttribute.getValue() !== null) {
+        var name = nameAttribute.getValue();
+        alert(name);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+//Javscript to get the "single line of text" field value and show as alert on change of option set field of form 
+
+function alertOnChange(executionContext) {
+    var formContext = executionContext.getFormContext();
+    
+    var nameAttribute = formContext.getAttribute("crf6a_name").getValue();
+    
+    var doyouhaveaadhar= formContext.getAttribute("crf6a_doyouhaveaadhar").getValue();
+    
+    if (doyouhaveaadhar == true ){
+    alert(nameAttribute);
+    }else{
+     alert("You must have aadhar");  }
+}
+ 
+
+
+
+
+
+
+
+
+// Write a JavaScript for set focus on field.  
+
+function focusOnfield(executionContext) {
+    var formContext = executionContext.getFormContext();
+    formContext.getControl("crf6a_name").setFocus();
+}
+
+
+
+
+
+
+
+
+
+
+// Write a JavaScript for Lock/Unlock field.
+
+function lockUnlock(executionContext) {
+    var formContext = executionContext.getFormContext();
+    
+    var doyouhaveaadhar = formContext.getAttribute("crf6a_doyouhaveaadhar").getValue();
+    
+    if (doyouhaveaadhar == true) {
+        formContext.getControl("crf6a_selectdocuments").setDisabled(false); // Unlock the field
+    } else {
+        formContext.getControl("crf6a_selectdocuments").setDisabled(true); // Lock the field
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// Write a JavaScript for hide/Show the Tabs and Sections.
+function hideAndShow(executionContext) {
+    var formContext = executionContext.getFormContext();
+    
+    var doyouhaveaadhar = formContext.getAttribute("crf6a_doyouhaveaadhar").getValue();
+    
+    // Check if the attribute value is true
+    if (doyouhaveaadhar === true) {
+        formContext.getControl("crf6a_selectdocuments").setVisible(true); // Show the field
+    } else {
+        formContext.getControl("crf6a_selectdocuments").setVisible(false); // Hide the field
+    }
+}
+
+
+
+
+
+
+
+ // JavaScript for displaying the error message
+   
+function errorMessage(executionContext) {
+    var formContext = executionContext.getFormContext();
+    
+    var doyouhaveaadhar = formContext.getAttribute("crf6a_doyouhaveaadhar").getValue();
+    
+    // Check if the attribute value is false
+    if (doyouhaveaadhar === false) {
+        formContext.getControl("crf6a_doyouhaveaadhar").setFocus(); // Set focus to the control
+        formContext.ui.setFormNotification("You must have Aadhar", "ERROR", "errormessage"); // Display error message
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+//Ability to write a JavaScript for Multi-select option set based on 
+//selected values the respective fields should visible 
+// and business required also.
+function setVisibilitybaseoptionset(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var selectDocuments = formContext.getAttribute("crf6a_selectdocuments").getText();
+    if (selectDocuments != null) {
+    if(selectDocuments.includes("Aadhar")){
+    
+    formContext.getControl("crf6a_aadharnumber").setVisible(true);
+    
+    }else if(selectDocuments.includes("PAN")){
+    
+    formContext.getControl("crf6a_pannumber").setVisible(true);
+    
+    }else if(selectDocuments.includes("Licence")){
+    
+    formContext.getControl("crf6a_licencenumber").setVisible(true);
+    
+    }else if(selectDocuments.includes("Aadhar") && selectDocuments.includes("PAN")){
+    formContext.getControl("crf6a_aadharnumber").setVisible(true);
+    formContext.getControl("crf6a_pannumber").setVisible(true);
+    
+    }else if(selectDocuments.includes("Aadhar") && selectDocuments.includes("Licence")){
+    formContext.getControl("crf6a_aadharnumber").setVisible(true);
+    formContext.getControl("crf6a_licencenumber").setVisible(true);
+    
+    } else if(selectDocuments.includes("PAN") && selectDocuments.includes("Licence")){
+    formContext.getControl("crf6a_pannumber").setVisible(true);
+    formContext.getControl("crf6a_licencenumber").setVisible(true);
+    
+    }else if(selectDocuments.includes("Aadhar") && selectDocuments.includes("PAN") && selectDocuments.includes("Licence")){
+    formContext.getControl("crf6a_aadharnumber").setVisible(true);
+    formContext.getControl("crf6a_pannumber").setVisible(true);
+    formContext.getControl("crf6a_licencenumber").setVisible(true);
+    }
+    
+    else {
+    
+    formContext.getControl("crf6a_aadharnumber").setVisible(false);
+    formContext.getControl("crf6a_pannumber").setVisible(false);
+    formContext.getControl("crf6a_licencenumber").setVisible(false);
+    
+    }
+     } else 
+     {
+     formContext.ui.setFormNotification("You must have to select documentr", "ERROR", "errormessage"); // Display error message
+
+}
+    
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Write a JavaScript for hide/Show the Tabs.
+
+
+function hideTab(executionContext){
+    var formContext = executionContext.getFormContext();
+    
+    var aadhar = formContext.getAttribute("crf6a_doyouhaveaadhar").getValue();
+    
+    if(aadhar == true){
+        formContext.ui.tabs.get("tab_2").setVisible(false);
+    }else{
+        formContext.ui.tabs.get("tab_2").setVisible(true);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// Write a JavaScript for hide/Show the  Sections.
+
+function hideandShowSections(executionContext){
+    var formContext = executionContext.getFormContext();
+    
+    var aadhar = formContext.getAttribute("crf6a_doyouhaveaadhar").getValue();
+    
+    if(aadhar == true){
+        formContext.ui.tabs.get("tab_2").sections.get("tab_2_section_1").setVisible(false);
+    }else{
+        formContext.ui.tabs.get("tab_2").sections.get("tab_2_section_1").setVisible(true);
+    }
+}
+
+
+
+
+
+
+
+
+
+//Automatic change the stages of BusinessProcessFlow on change of option set field valule using Javascript
+
+function movetoNextBpfStage(executionContext) {
+    // Get the form context from the execution context
+    var formContext = executionContext.getFormContext();
+    
+    // Retrieve the value of the attribute 'crf6a_doyouhaveaadhar'
+    var aadhar = formContext.getAttribute("crf6a_doyouhaveaadhar").getValue();
+    
+    // Check if the 'aadhar' attribute is true
+    if (aadhar === true) {
+        // Move to the next stage in the Business Process Flow
+        formContext.data.process.moveNext();
+    } else {
+        // Move to the previous stage in the Business Process Flow
+        formContext.data.process.movePrevious();
+    }
+}
+
+
+
+
+
+
+// Get any single line of text field from related entity and 
+// set it on primary entity using Javascript
+
+
+function getRelatednEtityField(executionContext){
+    var formContext = executionContext.getFormContext();
+    var employeeid = formContext.getAttribute("crf6a_employee").getValue()[0].id;
+    
+    formContext.getAttribute("crf6a_employeeid").setValue(employeeid);
+    
+}
